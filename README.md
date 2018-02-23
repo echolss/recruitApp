@@ -1,12 +1,12 @@
-##一款在线实时聊天招聘的webApp
-前端：react16+react-redux+react-router4+antd-mobile
+# 一款在线实时聊天招聘的webApp
+* 前端：react16+react-redux+react-router4+antd-mobile
 
-后端：node.js+express
-数据库：mongodb
-交互：socket.io+axios
-工具：creat-react-app
+* 后端：node.js+express
+* 数据库：mongodb
+* 交互：socket.io+axios
+* 工具：creat-react-app
 
-##运行项目
+## 运行项目
 
 * [下载安装mongodb教程](http://blog.csdn.net/qq_22063697/article/details/78069787?locationNum=9&fps=1)
     *  直接把一个markdown的文本文件拖放到当前这个页面就可以了
@@ -16,12 +16,8 @@
 * npm run server
     *  可以访问服务器：http://localhost:9093/
     *  可以访问本地：先：npm start   再访问：http://localhost:3000/
-* 有数量也有质量的`主题`,编辑器和预览区域
-* 完美兼容`Github`的markdown语法
-* 预览区域`代码高亮`
-* 所有选项自动记忆
 
-##文件注释
+## 文件注释
 config 配置文件
 public 
 server 后台代码
@@ -66,7 +62,7 @@ src
 .babelrc 给后端配置jsx环境
 
 
-##若有疑问，可以联系我
+## 若有疑问，可以联系我
 
 * QQ: 280508950 
 
