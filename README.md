@@ -9,8 +9,6 @@
 ## 运行项目
 
 * [下载安装mongodb教程](http://blog.csdn.net/qq_22063697/article/details/78069787?locationNum=9&fps=1)
-    *  直接把一个markdown的文本文件拖放到当前这个页面就可以了
-    *  导出为一个html格式的文件，样式一点也不会丢失
 * npm install
 * npm run build
 * npm run server
