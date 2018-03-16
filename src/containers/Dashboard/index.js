@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavBar } from 'antd-mobile';
 import Boss from '../Boss';
 import Worker from '../Worker';
 import { connect } from 'react-redux';
@@ -70,7 +69,6 @@ class Dashboard extends React.Component {
         const page = navList.find(v=>v.path===pathname);
         return page  ? (
             <div>
-                <NavBar mode="dard" className="fixed-header">{page.title}</NavBar>
                 <div className="fixed-body">
                 {/* <QueueAnim duration={800} type="scaleX"> */}
                     <Route path={page.path} component={page.component} key={page.path}/>

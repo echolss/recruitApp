@@ -32,6 +32,8 @@
 }
 .logImg {
     border-radius: 50%;
+    width: 200px;
+    height: 200px;
 }
 /*Logo*/
 
@@ -178,3 +180,192 @@
     height: 45px;
 }
 /*Dashboard*/
+
+/*VegIndex*/
+.veglist {
+    display: flex;
+    justify-content: center;
+}
+.categoryTitle {
+    text-align: center;
+}
+#logNav .am-navbar {
+    background-color: #90C048;
+    height: 55px;
+    color: #fff;
+}
+#cateNav .am-navbar {
+    height: 55px;
+    color: #9c7c7c;
+    font-size: 20px;
+}
+.cateImg {
+    width: 14px;
+    height: 14px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.inline-block-ele {
+    display: inline-block;
+}
+.leftNavText {
+    margin-left: 100px;
+    cursor: pointer;
+}
+.indexNavList-Item {
+    list-style: none;
+    display: inline-block;
+    margin-left: 50px;
+    color: #9c7c7c;
+    cursor: pointer;
+}
+.single-foo-menu {
+    margin-left: 100px;
+    position: absolute;
+    z-index: 90 !important;
+    width: 200px;
+  }
+  .single-menu-active .single-top-nav-bar{
+    z-index: 90;
+  }
+  
+  .am-navbar-title {
+    color: #FFF!important;
+  }
+  .menu-mask {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    z-index: 89;
+  }
+  .am-menu .am-flexbox .am-flexbox-item {
+    overflow-y: auto;
+  }
+  .footer-box {
+      margin-top: 15px;
+      width: 100%;
+      height: 200px;
+      background-color: #90C048;
+      display: flex;
+      justify-content: center;
+  }
+  .flex-foot-item {
+      margin-right: 200px;
+      margin-top: 15px;
+      font: 18px/30px "\5FAE\8F6F\96C5\9ED1";
+      color: #fff;
+  }
+  .flex-foot-item li {
+      list-style: none;
+  }
+  .flex-foot-item a {
+      color: #fff;
+  }
+  .flex-foot-item ul {
+      padding: 0;
+      margin: 0;
+  }
+  .flex-foot-item p {
+      border-bottom: 1px solid #fff;
+  }
+/*VegIndex*/
+
+/*VegCard*/
+.vegItem {
+    border-radius: 10px;
+    text-align: center;
+    margin-right: 20px;
+    margin-top: 10px;
+    border: 1px solid #ebebeb;
+    cursor: pointer;
+}
+.vegItem:hover {
+    background: #ebebeb;
+    box-shadow: 5px 5px 5px #888888;
+}
+.vegImg {
+    width: 270px;
+    height: 270px;
+}
+.veg-name {
+    font: 18px/30px "\5FAE\8F6F\96C5\9ED1";
+    color: #666;
+}
+.veg-price {
+    font: 18px/30px "\5FAE\8F6F\96C5\9ED1";
+    color: #418c0b;
+}
+/*VegCard*/
+/*Login*/
+#loginBox {
+    width: 350px;
+    height: 600px;
+    border: 1px solid #cccccc;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow: 5px 5px 5px #888888;
+}
+#loginBox .am-button {
+    background-color: #90C048;
+    color: #fff;
+}
+#loginBox .am-button:hover {
+    background-color: #28965f;
+}
+/*Login*/
+/*Register*/
+#registerBox {
+    width: 350px;
+    height: 600px;
+    border: 1px solid #cccccc;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow: 5px 5px 5px #888888;
+}
+#registerBox .am-button {
+    background-color: #90C048;
+    color: #fff;
+}
+#registerBox .am-button:hover {
+    background-color: #28965f;
+}
+/*Register*/
+/*Home.js*/
+.Nav-logo-img {
+    /* border-radius: 50%; */
+    /* width: 45px; */
+    height: 45px;
+}
+.am-navbar-right a {
+    color: #fff;
+}
+/*Home.js*/
+/*VegDetail*/
+.veg-detail-big-img {
+    display: block;
+}
+.veg-right-detail,
+.veg-right-img {
+    float: left;
+}
+.veg-right-detail {
+    margin-left: 20px;
+}
+.vegDetail-wrap {
+    width: 1000px;
+    margin: auto;
+}
+.vegdetail-content {
+    clear: both;
+}
+#VegDetail .veg-tilte {
+    font-family: 微软雅黑 Bold, 微软雅黑;
+    color: #009131;
+}
+#VegDetail .veg-price {
+    font-size: 30px;
+    color: #009131;
+}
+/*VegDetail*/

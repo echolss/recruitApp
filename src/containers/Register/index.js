@@ -41,7 +41,7 @@ class Register extends React.Component {
         const { msg, redirectTo } =this.props;
         
         return (
-            <div>
+            <div id="registerBox">
                 {redirectTo && <Redirect to={redirectTo}/>}
                 <Logo/>
                 <WingBlank>
@@ -60,7 +60,7 @@ class Register extends React.Component {
                             checked={this.props.state.type==='worker'}>找工作</RadioItem>
                     </List>
                     <WhiteSpace/>
-                    <Button type="primary" onClick={this.handleClick}>注册</Button>
+                    <Button onClick={this.handleClick}>注册</Button>
                 </WingBlank>
             </div>
         );

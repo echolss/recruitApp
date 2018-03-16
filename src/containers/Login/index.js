@@ -35,7 +35,7 @@ class Login extends React.Component {
     render() {
         const { msg, redirectTo } =this.props;
         return (
-            <div>
+            <div id="loginBox">
                 {redirectTo && redirectTo !=='/login' && <Redirect to={redirectTo}/>}
                 <Logo/>
                 <WingBlank>
@@ -46,10 +46,11 @@ class Login extends React.Component {
                         <InputItem onChange={v => this.props.handleChange('pwd',v)}>密码</InputItem>
                     </List>
                     <WhiteSpace/>
-                    <Button type="primary" onClick={this.handleClick}>登录</Button>
+                    <Button onClick={this.handleClick}>登录</Button>
                     <WhiteSpace/>
-                    <Button type="primary" onClick={this.handleRegister}>注册</Button>
+                    <Button onClick={this.handleRegister}>注册</Button>
                 </WingBlank>
+                <WhiteSpace/>
             </div>
         );
     }
