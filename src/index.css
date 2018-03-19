@@ -311,7 +311,7 @@
     background-color: #90C048;
     color: #fff;
 }
-#loginBox .am-button:hover {
+#loginBox .am-button:active {
     background-color: #28965f;
 }
 /*Login*/
@@ -328,7 +328,7 @@
     background-color: #90C048;
     color: #fff;
 }
-#registerBox .am-button:hover {
+#registerBox .am-button:active {
     background-color: #28965f;
 }
 /*Register*/
@@ -352,6 +352,7 @@
 }
 .veg-right-detail {
     margin-left: 20px;
+    width: 600px;
 }
 .vegDetail-wrap {
     width: 1000px;
@@ -367,5 +368,68 @@
 #VegDetail .veg-price {
     font-size: 30px;
     color: #009131;
+}
+.our-store {
+    color: #aaaaaa;
+    font-size: 18px;
+}
+.veg-monthSell {
+    padding-top: 10px;
+    border-top: 1px dashed #009131;
+    height: 25px;
+}
+.veg-reviews {
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #009131;
+    height: 25px;
+}
+.buy-count {
+    width: 70px;
+    line-height: 30px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+.buy-count-left,
+.buy-count-right {
+    cursor: pointer;
+}
+.buy-count-left:active,
+.buy-count-right:active {
+    background: #ccc;
+}
+.buy-count-left {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.buy-count-right {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.buy-count-center {
+    border-left: none;
+    border-right: none;
+}
+.buy-action {
+    width: 150px;
+    line-height: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.buy-action-left {
+    border: 1px solid #009131;
+    background-color: #cddaba;
+    color: #009131;
+    margin-right: 50px;
+}
+.buy-action-right {
+    border: 1px solid #009131;
+    background-color: #009131;
+    color: #fff;
+}
+.buy-action-right:active {
+    border: 1px solid #072711;
+    background-color: #072711;
 }
 /*VegDetail*/

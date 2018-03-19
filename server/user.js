@@ -3,6 +3,8 @@ const Router = express.Router();
 const model = require('./module');
 const User = model.getModel('user');
 const Chat = model.getModel('chat');
+const Goods = model.getModel('goods');
+const Categorys = model.getModel('categorys');
 const utils = require('utility');
 
 const _filter = {'pwd': 0, '__v': 0};  //定义一个统一显示条件
@@ -30,11 +32,12 @@ Router.get('/usertest',function(req,res) {
     })
 })
 Router.get('/msgtest',function(req,res) {
-    //User.remove({},function(err,doc) {})  //删除所有数据
+    //Chat.remove({},function(err,doc) {})  //删除所有数据
     Chat.find({},function(err,doc) {
         return res.json(doc)
     })
 })
+
 Router.get('/list',function(req,res) {
     const { type } =req.query;
     //用户有没有cookie
@@ -154,7 +157,68 @@ function md5Pwd(pwd) {  //光用utils.md5(pwd)是不够的，可以在对应网�
     const salt = 'luo_sha_sha_280508950@ECHO~~~~';
     return utils.md5(utils.md5(pwd+salt));
 }
-
+Router.get('/goodstest',function(req,res) {
+    //Goods.remove({},function(err,doc) {})  //删除所有数据
+    Goods.find({},function(err,doc) {
+        return res.json(doc)
+    })
+})
+/*
+Goods.create(
+    [
+        {
+            goodsId: '1001',
+            title: '红虾 阿根廷 2Kg',
+            imgUrl: 'http://www.6ctb.com/images/201611/goods_img/496_P_1478053438754.jpg',
+            price: '￥168.00',
+            categoryId: '1',
+            bigImgList: [
+                'http://www.6ctb.com/images/upload/image/20161130/20161130160934_68198.jpg',
+                'http://www.6ctb.com/images/upload/image/20161130/20161130160935_83081.jpg',
+                'http://www.6ctb.com/images/upload/image/20161130/20161130160935_38905.jpg',
+                'http://www.6ctb.com/images/upload/image/20161130/20161130160935_46962.jpg',
+                'http://www.6ctb.com/images/upload/image/20161130/20161130160936_74285.jpg',
+                'http://www.6ctb.com/images/upload/image/20161130/20161130160936_40397.jpg'
+            ],
+            monthSell: '10000',
+            reviews: '26',
+            sendCost: '韵达速递	6元   |   顺丰速运	23元  '
+        }
+    ]
+);
+*/
+Router.get('/categorystest',function(req,res) {
+    //Goods.remove({},function(err,doc) {})  //删除所有数据
+    Categorys.find({},function(err,doc) {
+        return res.json(doc)
+    })
+})
+/*
+Categorys.create(
+    [
+        {
+            categoryId: '1',
+            categoryTitle: '大连海鲜'
+        },
+        {
+            categoryId: '2',
+            categoryTitle: '清新绿蔬'
+        },
+        {
+            categoryId: '3',
+            categoryTitle: '鲜美肉类'
+        },
+        {
+            categoryId: '4',
+            categoryTitle: '粮食副油',
+        },
+        {
+            categoryId: '5',
+            categoryTitle: '脆香水果',
+        }
+    ]
+);
+*/
 module.exports = Router
 
 //Chat.remove({},function(err,doc) {});

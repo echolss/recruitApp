@@ -9,14 +9,15 @@ import {
 } from 'react-router-dom'
 import NeedLogin from './route/NeedLogin';
 import VegDetail from './containers/VegDetail';
+import { connect } from 'react-redux';
+import { dataAction } from './redux/actions/user';
 
+@connect(mapStateToProps)
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             hasError: false,
-            avatar: '',
-            name: ''
         }
     }
     componentDidCatch(err, info) {
@@ -28,28 +29,27 @@ class Home extends React.Component {
         .then(res => {
             if(res.status===200) {
                 if(res.data.code===0) {
-                    // this.props.dispatch(dataAction(res.data.data));
+                    this.props.dispatch(dataAction(res.data.data));
                     this.setState({
                         avatar: res.data.data.avatar,
                         name: res.data.data.user
                     })
-                    console.log(res.data.data)
                 }
             }
         })
     }
     render() {
-        const { name, avatar } = this.state;
+        const { user, avatar } = this.props.user;
         const isShowUser = (
             <span>
                 {
-                    name 
+                    user 
                     ? 
                     (
                         <Link to="/needlogin">
                             <span>嗨， </span>
                             <img src={require(`./components/img/${avatar}.png`)} alt=""/>
-                            <span>{name}</span>
+                            <span>{user}</span>
                         </Link>
                     ) 
                     : (<Link to="/needlogin">登录 | 注册</Link>)
@@ -78,3 +78,9 @@ class Home extends React.Component {
 }
 
 export default Home
+
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    }
+}

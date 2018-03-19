@@ -23,6 +23,21 @@ const models = {
         'read': {type: Boolean, default: false},
         'content': {type: String, require: true, default: ''},
         'create_time': {type: Number, default: Date.now}     
+    },
+    goods: {
+        'goodsId': {type: String, require: true},
+        'title': {type: String, require: true},
+        'imgUrl': {type: String, require: true},
+        'price': {type: String, require: true},
+        'categoryId': {type: String, require: true},
+        'bigImgList': {type: Array},
+        'monthSell': {type: String, require: true},
+        'reviews': {type: String, require: true},
+        'sendCost': {type: String, require: true, default: '中通快递 10元'},
+    },
+    categorys: {
+        'categoryId': {type: String, require: true},
+        'categoryTitle': {type: String, require: true},
     }
 }
 
