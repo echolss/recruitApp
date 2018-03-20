@@ -4,21 +4,6 @@ import VegCard from '../../components/VegCard';
 import Foot from '../../components/Foot';
 import axios from 'axios';
 
-const data = [
-    {
-      value: '1',
-      label: 'Food',
-    }, {
-      value: '2',
-      label: 'Supermarket',
-    },
-    {
-      value: '3',
-      label: 'Extra',
-      isLeaf: true,
-    },
-];
-
 class VegIndex extends React.Component {
     state = {
         carouselImg: ['1', '2', '3'],
@@ -51,7 +36,10 @@ class VegIndex extends React.Component {
             }
         ],
         categorys: [],
-        show: false
+        show: false,
+        seafood: [],
+        greens: [],
+        meat: []
     }
     componentDidMount() {
         axios.get('/user/categorystest')
@@ -68,33 +56,50 @@ class VegIndex extends React.Component {
                     categorys: arr
                 });
             }
+        });
+        axios.get('/user/fourSeafood')
+        .then(res => {
+            if(res.status===200) {
+                this.setState({
+                    seafood: res.data.seafood
+                })
+            }
+        });
+        axios.get('/user/fourGreens')
+        .then(res => {
+            if(res.status===200) {
+                this.setState({
+                    greens: res.data.greens
+                })
+            }
+        });
+        axios.get('/user/fourMeat')
+        .then(res => {
+            if(res.status===200) {
+                this.setState({
+                    meat: res.data.meat
+                })
+            }
         })
     }
-    onChange = () => {
-        
-      }
-      handleClick = (e) => {
+    onChange = (value) => {
+        this.props.history.push(`/catedetail/${value}`);
+    }
+    handleClick = (e) => {
         e.preventDefault(); // Fix event propagation on Android
         this.setState({
-          show: !this.state.show,
+        show: !this.state.show,
         });
         // mock for async data loading
-        if (!this.state.categorys) {
-          setTimeout(() => {
-            this.setState({
-                categorys: data,
-            });
-          }, 500);
-        }
-      }
+    }
     
-      onMaskClick = () => {
+    onMaskClick = () => {
         this.setState({
-          show: false,
+        show: false,
         });
-      }
+    }
     render(){
-        const { categorys, show } = this.state;
+        const { categorys, show, seafood, greens, meat } = this.state;
         const menuEl = (
           <Menu
             className="single-foo-menu"
@@ -161,28 +166,33 @@ class VegIndex extends React.Component {
                     </div>
                 ))}
                 </Carousel>
-                {/* {
-                    this.state.allGoodsList.map(
-                        categoryItem => (
-                            <div key={categoryItem.categoryId}>
-                                <h4 className="categoryTitle">{categoryItem.categoryTitle}</h4>
-                                <div className="veglist">
-                                    {
-                                        categoryItem.list.map(
-                                            v => (
-                                                <VegCard vegItem={v} key={v.id}/>
-                                            )
-                                        )
-                                    }
-                                </div>
-                            </div>
-                        )
-                    )
-                } */}
-                <Foot/>
+                { 
+                    categorys.length && <div>
+                        <CatVegCard categoryTitle={categorys[0].categoryTitle} list={seafood}/>
+                        <CatVegCard categoryTitle={categorys[1].categoryTitle} list={greens}/>
+                        <CatVegCard categoryTitle={categorys[2].categoryTitle} list={meat}/>
+                        <Foot/>
+                    </div>
+                }
             </div>
         );
 	}
 }
 
+function CatVegCard(props) {
+    return (
+        <div>
+            <h4 className="categoryTitle">{props.categoryTitle}</h4>
+            <div className="veglist">
+                {
+                    props.list.map(
+                        v => (
+                            <VegCard vegItem={v} key={v.goodsId}/>
+                        )
+                    )
+                }
+            </div>
+        </div>
+    );
+}
 export default VegIndex

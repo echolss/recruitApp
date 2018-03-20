@@ -13,12 +13,12 @@ class VegCard extends React.Component {
     }
     render(){
         const { title, price, imgUrl } = this.props.vegItem;
-        const vegId = this.props.vegItem.id;
+        const vegId = this.props.vegItem.goodsId;
 		return (
             <div className="vegItem" onClick={() => {this.handleClick(vegId)}}>
                 <img src={imgUrl} alt={title} className="vegImg"/>
                 <p className="veg-name">{title}</p>
-                <p className="veg-price">{price}</p>
+                <p className="veg-price">￥ {price}</p>
             </div>
         );
 	}

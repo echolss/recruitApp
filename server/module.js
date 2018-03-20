@@ -28,16 +28,26 @@ const models = {
         'goodsId': {type: String, require: true},
         'title': {type: String, require: true},
         'imgUrl': {type: String, require: true},
-        'price': {type: String, require: true},
+        'price': {type: Number, require: true},
         'categoryId': {type: String, require: true},
         'bigImgList': {type: Array},
-        'monthSell': {type: String, require: true},
-        'reviews': {type: String, require: true},
+        'monthSell': {type: Number, require: true},
+        'reviews': {type: Number, require: true},
         'sendCost': {type: String, require: true, default: '中通快递 10元'},
     },
     categorys: {
         'categoryId': {type: String, require: true},
         'categoryTitle': {type: String, require: true},
+    },
+    willbuy: {
+        'willbuyId': {type: String, require: true},
+        'userId': {type: String, require: true},
+        'goodsId': {type: String, require: true},
+        'categoryId': {type: String, require: true},
+        'title': {type: String, require: true},
+        'imgUrl': {type: String, require: true},
+        'price': {type: Number, require: true},
+        'num': {type: Number, require: true},
     }
 }
 

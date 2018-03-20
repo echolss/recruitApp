@@ -11,6 +11,7 @@ import NeedLogin from './route/NeedLogin';
 import VegDetail from './containers/VegDetail';
 import { connect } from 'react-redux';
 import { dataAction } from './redux/actions/user';
+import CateDetail from './components/CateDetail';
 
 @connect(mapStateToProps)
 class Home extends React.Component {
@@ -71,6 +72,7 @@ class Home extends React.Component {
                     <Route exact path="/" component={VegIndex}/>
                     <Route path="/needlogin" component={NeedLogin}/>
                     <Route path="/vegdetail/:vegId" component={VegDetail} />
+                    <Route path="/catedetail/:cateId" component={CateDetail} />
                 </div>
             </Router>
         )

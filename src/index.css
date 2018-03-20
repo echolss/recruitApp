@@ -185,6 +185,7 @@
 .veglist {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .categoryTitle {
     text-align: center;
@@ -350,6 +351,9 @@
 .veg-right-img {
     float: left;
 }
+.veg-right-img {
+    width: 333px;
+}
 .veg-right-detail {
     margin-left: 20px;
     width: 600px;
@@ -433,3 +437,18 @@
     background-color: #072711;
 }
 /*VegDetail*/
+/*WillBuy*/
+.result-null-wrap p {
+    width: 200px;
+    text-align: center
+}
+.result-null-wrap {
+    width: 200px;
+    margin: auto;
+}
+.result-null-title {
+    color: #dbdbdb;
+    font: 400 18px "微软雅黑";
+    margin-top: 30px;
+}
+/*WillBuy*/

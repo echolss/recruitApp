@@ -7,6 +7,8 @@ import User from '../User';
 import TabLinkBar from '../../components/TabLinkBar';
 import { Route, Redirect } from 'react-router-dom';
 import { getMsgList, receiveMsg } from '../../redux/actions/msg';
+import Order from '../Order';
+import WillBuy from '../WillBuy';
 // import QueueAnim from 'rc-queue-anim';
 //import PropTypes from 'prop-types';
 
@@ -34,6 +36,20 @@ class Dashboard extends React.Component {
         const pathname = this.props.location.pathname;
         const { user } = this.props;
         const navList = [
+            {
+                path: '/willbuy',
+                text: '购物车',
+                icon: 'willbuy',
+                title: '个人中心',
+                component: WillBuy
+            },
+            {
+                path: '/order',
+                text: '订单',
+                icon: 'order',
+                title: '个人中心',
+                component: Order
+            },
             {
                 path: '/boss',
                 text: '牛人',
@@ -76,7 +92,7 @@ class Dashboard extends React.Component {
                 </div>
                 <TabLinkBar navList={navList} />
             </div>
-        ) : (<Redirect to="/message"></Redirect>);
+        ) : (<Redirect to="/willbuy"></Redirect>);
     }
 }
 

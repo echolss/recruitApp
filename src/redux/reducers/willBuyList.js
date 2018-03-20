@@ -5,14 +5,18 @@ export function willBuyList(state=[],action) {
         case 'WillBuy_List':
             return action.willBuyList;
         case 'Add_WillBuy' : 
+            const willbuyItem = action.willbuyItem;
             return [
                 ...state,
                 {
-                goodsId: action.goodsId,
-                title: action.title,
-                completed: false,
-                willBuyId: action.willBuyId,
-                userId: action.userId
+                    willbuyId: willbuyItem.willbuyId,
+                    userId: willbuyItem.userId,
+                    goodsId: willbuyItem.goodsId,
+                    categoryId: willbuyItem.categoryId,
+                    title: willbuyItem.title,
+                    imgUrl: willbuyItem.imgUrl,
+                    price: willbuyItem.price,
+                    num: willbuyItem.num
                 }
             ];
         case 'Reduce_WillBuy': 
