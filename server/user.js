@@ -231,6 +231,39 @@ Router.get('/getwillbuylist',function(req,res) {
     })
     
 })
+Router.post('/addwillbuy',function(req,res) {
+    const {userId,goodsId,categoryId,title,imgUrl,price,num} = req.body;
+    Willbuy.find({},function(err,doc) {
+        const willbuyId = doc.length ? (Number(doc[doc.length - 1].willbuyId.substr(1)) + 1) : 1;
+        Willbuy.create(
+            {
+                willbuyId: 'w'+willbuyId,
+                userId,
+                goodsId,
+                categoryId,
+                title,
+                imgUrl,
+                price,
+                num
+            }
+        );
+        return res.json({code: 0, willbuyId: willbuyId})
+    })
+})
+Router.get('/willbuystest',function(req,res) {
+    Willbuy.find({},function(err,doc) {
+        return res.json(doc)
+    })
+})
+Router.get('/deletewillbuy',function(req,res) {
+    const { willbuyId } =req.query;
+    Willbuy.remove({willbuyId: willbuyId},function(e,d) {  //第一个是查询条件，第二个是后端返回数据的显示条件
+        Willbuy.find({},function(err,doc) {
+            return res.json({code: 0, willBuyList: doc})
+        })
+    })
+});
+//Willbuy.remove({},function(err,doc) {})  //删除所有数据
 /*
 Goods.create(
     [

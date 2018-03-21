@@ -25,3 +25,36 @@ export function getDifferentSet(chooseIds, state) {
     }
     return arr;
 }
+
+export function isAllCheck(arr) {
+    let trueNum = 0;
+    for(let i=0; i<arr.length; i++) {
+        if(arr[i].isChecked === true) {
+            trueNum = trueNum+1;
+        }
+    }
+    if(trueNum === arr.length) {
+        return true;
+    }
+    return false;
+}
+
+export function getAllGoodsNum(willBuyList) {
+    let num = 0;
+    for(let i=0; i<willBuyList.length; i++) {
+        if(willBuyList[i].isChecked === true) {
+            num = num + willBuyList[i].num;
+        }
+    }
+    return num;
+}
+
+export function getAllGoodsCount(willBuyList) {
+    let count = 0;
+    for(let i=0; i<willBuyList.length; i++) {
+        if(willBuyList[i].isChecked === true) {
+            count = count + (willBuyList[i].num)*(willBuyList[i].price);
+        }
+    }
+    return count;
+}

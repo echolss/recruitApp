@@ -9,7 +9,8 @@ class VegDetail extends React.Component {
         super(props);
         this.state = {
             nowFoodCount: 1,
-            vegItem: {}
+            vegItem: {},
+            showToast: false
         }
     }
     componentDidMount() {
@@ -36,12 +37,44 @@ class VegDetail extends React.Component {
         }
     }
     buyImmediately = () => {
-
+        this.setState({
+            showToast: true
+        });
+        setTimeout(() => {
+            this.setState({
+                showToast: false
+            });
+        }, 1000);
     }
     putIntoMenu = () => {
+        const userId = this.props.user._id;
+        const { goodsId, categoryId, title, imgUrl, price } = this.state.vegItem;
+        const num = this.state.nowFoodCount;
+        const willbuyItem = {
+            userId: userId,
+            goodsId: goodsId,
+            categoryId: categoryId,
+            title: title,
+            imgUrl: imgUrl,
+            price: price,
+            num: num
+        }
+        axios.post('/user/addwillbuy',willbuyItem)
+        .then(res => {
+            if(res.status===200 && res.data.code===0) {
+                this.setState({
+                    showToast: true
+                });
+                setTimeout(() => {
+                    this.setState({
+                        showToast: false
+                    });
+                }, 1000);
+            }
+        })
     }
     render() {
-        console.log('this.props.match.params.vegId',this.props.match.params.vegId)
+        const { showToast } = this.state;
         const { user } = this.props.user;
         const leftBuyButton = user ? (<button className="buy-action buy-action-left" onClick={this.buyImmediately}>立即下单</button>)
             : (<a href="http://localhost:3000/needlogin"><button className="buy-action buy-action-left">立即下单</button></a>);
@@ -81,10 +114,23 @@ class VegDetail extends React.Component {
                     }
                 </div>
                 <Foot/>
+                {
+                    showToast && <Toast />
+                }
             </div>
         );
     }
 }
+
+const Toast = () => (
+    <div className="toast">
+        <div className="toast-mask"></div>
+        <div className="toast-wrap">
+            <p><img src={require('./img/success.png')} alt="" /></p>
+            <p>成功添加到购物车 !!!</p>
+        </div>
+    </div>
+);
 
 export default VegDetail
 
