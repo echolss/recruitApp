@@ -318,12 +318,13 @@
 /*Login*/
 /*Register*/
 #registerBox {
-    width: 350px;
-    height: 600px;
+    width: 480px;
+    height: 710px;
     border: 1px solid #cccccc;
     margin: auto;
     margin-top: 20px;
     box-shadow: 5px 5px 5px #888888;
+    padding-top: 15px;
 }
 #registerBox .am-button {
     background-color: #90C048;
@@ -537,3 +538,36 @@
     float: right;
 }
 /*WillBuy*/
+/*ManagerOrder*/
+#Manager-Order-Page-Head,
+#Manager-Order-Page-List {
+    width: 80%;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #90C048;
+    display: flex;
+    justify-content: space-between;
+}
+#Manager-Order-Page .button-wrap,
+#Manager-Order-Page .state-wrap {
+    width: 200px;
+}
+#Manager-Order-Page .img-wrap,
+#Manager-Order-Page .name-wrap,
+#Manager-Order-Page .num-wrap,
+#Manager-Order-Page .count-wrap {
+    margin-top: 20px;
+    width: 100px;
+}
+#Manager-Order-Page .time-wrap {
+    margin-top: 20px;
+    width: 200px;
+}
+#Manager-Order-Page .state-wrap {
+    margin-top: 20px;
+    text-align: center;
+}
+/*ManagerOrder*/

@@ -1,27 +1,21 @@
 import React from 'react';
-import Logo from '../../components/Logo';
-import { List, InputItem, WingBlank, WhiteSpace, Button, Radio, Toast } from 'antd-mobile';
+import { List, InputItem, WingBlank, WhiteSpace, Button, Toast, TextareaItem } from 'antd-mobile';
 import { connect } from 'react-redux';
 import { registerAsync } from '../../redux/actions/user';
 import { Redirect } from 'react-router-dom';
 import HOCform from '../../components/HOCform';
-
-const RadioItem = Radio.RadioItem;
+import AvatarSelector from '../../components/AvatarSelector';
 
 @connect(mapStateToProps)
 @HOCform
 class Register extends React.Component {
-    /*constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
-            redirectTo: '',  //跳转到哪儿去
-            user: '',
-            pwd: '',
-            repeatPwd: '',
-            type: 'boss'  //or worker
+            avatar: '',
+            type: 'common'
         }
     }
-    */
     componentDidMount() {
         this.props.handleChange('type','worker');
     }
@@ -34,30 +28,40 @@ class Register extends React.Component {
             Toast.info('重复密码和密码必须相同', 2, null, false);
         }
         else {
-            this.props.dispatch(registerAsync(this.props.state));
+            this.props.dispatch(registerAsync(Object.assign(this.props.state, this.state)));
         }
+    }
+    selectAvatar = (imgName) => {
+        this.setState({
+            avatar: imgName
+        })
     }
     render() {
         const { msg, redirectTo } =this.props;
-        
+        console.log('this.state.avatar',this.state.avatar);
         return (
             <div id="registerBox">
                 {redirectTo && <Redirect to={redirectTo}/>}
-                <Logo/>
                 <WingBlank>
                     <List>
+                        <WhiteSpace/>
                         <WingBlank>{msg && <p className="err-tip">{msg}</p>}</WingBlank>
+                        <WhiteSpace/>
                         <InputItem onChange={v => this.props.handleChange('user',v)}>用户</InputItem>
                         <WhiteSpace/>
                         <InputItem onChange={v => this.props.handleChange('pwd',v)}>密码</InputItem>
                         <WhiteSpace/>
                         <InputItem onChange={v => this.props.handleChange('repeatPwd',v)}>确认密码</InputItem>
                         <WhiteSpace/>
-                        <RadioItem onChange={() => this.props.handleChange('type','boss')} 
-                            checked={this.props.state.type==='boss'}>招贤人</RadioItem>
+                        <AvatarSelector selectAvatar={this.selectAvatar}/>
                         <WhiteSpace/>
-                        <RadioItem onChange={() => this.props.handleChange('type','worker')} 
-                            checked={this.props.state.type==='worker'}>找工作</RadioItem>
+                        <TextareaItem
+                            title="收货地址"
+                            rows={3}
+                            onChange={v => this.props.handleChange('address',v)}
+                            autoHeight
+                        />
+                        <WhiteSpace/>
                     </List>
                     <WhiteSpace/>
                     <Button onClick={this.handleClick}>注册</Button>

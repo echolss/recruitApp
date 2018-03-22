@@ -1,6 +1,5 @@
 import React from 'react';
 import Boss from '../Boss';
-import Worker from '../Worker';
 import { connect } from 'react-redux';
 import Message from '../Message';
 import User from '../User';
@@ -9,9 +8,6 @@ import { Route, Redirect } from 'react-router-dom';
 import { getMsgList, receiveMsg } from '../../redux/actions/msg';
 import Order from '../Order';
 import WillBuy from '../WillBuy';
-// import QueueAnim from 'rc-queue-anim';
-//import PropTypes from 'prop-types';
-
 
 @connect(mapStateToProps)
 class Dashboard extends React.Component {
@@ -41,7 +37,8 @@ class Dashboard extends React.Component {
                 text: '购物车',
                 icon: 'willbuy',
                 title: '个人中心',
-                component: WillBuy
+                component: WillBuy,
+                hide: user.type==='manager'
             },
             {
                 path: '/order',
@@ -52,19 +49,11 @@ class Dashboard extends React.Component {
             },
             {
                 path: '/boss',
-                text: '牛人',
+                text: '联系客服',
                 icon: 'boss',
                 title: '牛人列表',
                 component: Boss,
-                hide: user.type==='worker'
-            },
-            {
-                path: '/worker',
-                text: '职位',
-                icon: 'job',
-                title: '职位列表',
-                component: Worker,
-                hide: user.type==='boss'
+                hide: user.type==='manager'
             },
             {
                 path: '/message',
@@ -80,7 +69,7 @@ class Dashboard extends React.Component {
                 title: '个人中心',
                 component: User
             }
-        ];
+        ]
 
         const page = navList.find(v=>v.path===pathname);
         return page  ? (
@@ -92,7 +81,7 @@ class Dashboard extends React.Component {
                 </div>
                 <TabLinkBar navList={navList} />
             </div>
-        ) : (<Redirect to="/willbuy"></Redirect>);
+        ) : (<Redirect to={user.type==='manager' ? "/order" : "/willbuy"}></Redirect>);
     }
 }
 
@@ -104,49 +93,7 @@ function mapStateToProps(state) {
         msg: state.user.msg,
         redirectTo: state.user.redirectTo,
         unread: state.msgUser.unread,
-        chatmsg: state.msgUser.chatmsg
+        chatmsg: state.msgUser.chatmsg,
+        unhandle: state.orderUser.unhandle
     }
 }
-/*
-Array.find:   查找元素，返回找到的值，找不到返回undefined
-
-var ret1 = arr1.find(
-    (value, index, arr) => { return value > 4 }
-)                                                 //undefined
-
-*/
-
-/*
-
-// 让动画生效，只渲染一个Route，根据当前的path决定组件
-const page = navList.find(v=>v.path=pathname);
-return (
-    <div>
-        <NavBar mode="dard" className="fixed-header">{navList.find(v => v.path===pathname).title}</NavBar>
-        <div className="fixed-body">
-        <QueueAnim duration={800} type="scaleX">
-            <Route path={page.path} component={page.component} key={page.path}/>
-        </QueueAnim>
-        </div>
-        <TabLinkBar navList={navList} />
-    </div>
-);
-
-return (
-    <div id="dashboard">
-        <NavBar mode="dard" className="fixed-header">{navList.find(v => v.path===pathname).title}</NavBar>
-        <div className="fixed-body">
-            <Switch>
-                {
-                    navList.map(
-                        v => (
-                            <Route path={v.path} component={v.component} key={v.path}/>
-                        )
-                    )
-                }
-            </Switch>
-        </div>
-        <TabLinkBar navList={navList} />
-    </div>
-);
-*/

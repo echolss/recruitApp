@@ -19,12 +19,12 @@ function authSuccess(obj) {
 
 // 注册
 
-export function registerAsync({user,pwd,type}) {
+export function registerAsync({user,pwd,type,avatar,address}) {
     return dispatch => {
-        axios.post('/user/register',{user,pwd,type})
+        axios.post('/user/register',{user,pwd,type,avatar,address})
            .then(res => {
                if(res.status===200 && res.data.code===0) {
-                    dispatch(authSuccess({user,pwd,type}))
+                    dispatch(authSuccess({user,pwd,type,avatar,address}))
                }
                else {
                    dispatch(errorMsg(res.data.msg))

@@ -30,19 +30,14 @@ class User extends React.Component {
 				<Result
 					img={<img src={require(`../../components/img/${props.avatar}.png`)} style={{width:50}} alt="" />}
 					title={props.user}
-					message={props.type==='boss'?props.company:null}
 				/>
-				
-				<List renderHeader={()=>'简介'}>
-					<Item
-						multipleLine
-					>
-						{props.title}
-						{props.desc.split('\n').map(v=><Brief key={v}>{v}</Brief>)}
-						{props.money?<Brief>薪资:{props.money}</Brief>:null}
-					</Item>
-					
-				</List>
+				{
+					props.address && (<List renderHeader={()=>'收货地址'}>
+						<Item multipleLine>
+							{props.address.split('\n').map(v=><Brief key={v}>{v}</Brief>)}
+						</Item>	
+					</List>)
+				}
 				<WhiteSpace></WhiteSpace>
 				<List>
 					<Item onClick={this.logout}>退出登录</Item>

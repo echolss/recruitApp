@@ -9,12 +9,8 @@ const models = {
         'user': {type: String, require: true},
         'pwd': {type: String, require: true},
         'type': {type: String, require: true},
-        'avatar': {type: String},  //头像
-        'desc': {type: String},   //个人简介
-        'job': {type: String},   //职位名
-        //if boss
-        'company': {type: String}, //公司
-        'money': {type: String}   //工资
+        'avatar': {type: String, require: true},
+        'address': {type: String}
     },
     chat: {
         'chatid': {type: String, require: true},
@@ -48,6 +44,14 @@ const models = {
         'imgUrl': {type: String, require: true},
         'price': {type: Number, require: true},
         'num': {type: Number, require: true},
+    },
+    order: {
+        'orderid': {type: String, require: true},
+        'from': {type: String, require: true},
+        'to': {type: String, require: true},
+        'handle': {type: Boolean, default: false},
+        'orderList': {type: Array, require: true},
+        'create_time': {type: Number, default: Date.now}     
     }
 }
 

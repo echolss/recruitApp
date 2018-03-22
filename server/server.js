@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const model = require('./module');
 const Chat = model.getModel('chat');
+const Order = model.getModel('order');
 
 const path = require('path');
 
@@ -22,6 +23,20 @@ io.on('connection',function(socket){
 		})
 		//console.log(data);
 		//io.emit('receiveMsg',data);    //把socket的事情广播到全局
+	})
+	socket.on('sendOrder',function(data) {
+		const { from, to, orderList } = data;
+		Order.find({},function(e,d) {
+			const orderid = d.length ? (Number(d[d.length - 1].orderid.substr(1)) + 1) : 1;
+			Order.create({
+				orderid: 'o'+orderid,
+				from,
+				to,
+				orderList: orderList
+			},function(err,doc){
+				io.emit('receiveOrder',Object.assign({},doc._doc));
+			})
+		})
 	})
 })
 

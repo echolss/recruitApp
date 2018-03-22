@@ -1,22 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import axios from 'axios';
+import { getOrderList, receiveOrder } from '../../redux/actions/order';
+import ManagerOrder from '../../components/ManagerOrder';
+import CommonOrder from '../../components/CommonOrder';
 
 @connect(mapStateToProps)
 class Order extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            nowFoodCount: 1,
-            vegItem: {}
+           orders: []
         }
     }
     componentDidMount() {
+        this.props.dispatch(getOrderList());
+        this.props.dispatch(receiveOrder());
     }
     render() {
+        const type = this.props.user.type;
         return (
             <div>
-                Order
+                {
+                   type==="manager" ? <ManagerOrder/> : <CommonOrder/>
+                }
             </div>
         );
     }

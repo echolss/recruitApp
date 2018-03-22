@@ -5,9 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 @withRouter
-@connect(
-	state=>state.msgUser
-)
+@connect(mapStateToProps)
 class TabLinkBar extends React.Component {
     render() {
         const { pathname } = this.props.location;
@@ -18,7 +16,7 @@ class TabLinkBar extends React.Component {
                     navList.map(
                         v => (
                             <TabBar.Item
-                            badge={v.path==='/message' ? this.props.unread: 0}
+                            badge={v.path==='/message' ? this.props.unread : (v.path==='/order' ? this.props.unhandle : 0)}
                             title={v.text}
                             key={v.text}
                             icon={{uri: require(`./img/${v.icon}.png`)}}
@@ -39,4 +37,11 @@ export default TabLinkBar
 
 TabLinkBar.propTypes = {
     navList: PropTypes.array.isRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        unread: state.msgUser.unread,
+        unhandle: state.orderUser.unhandle
+    }
 }

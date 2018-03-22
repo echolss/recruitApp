@@ -4,7 +4,8 @@ import axios from 'axios';
 import ResultNull from '../../components/ResultNull';
 import ListItem from '../../components/ListItem';
 import { Checkbox, Button } from 'antd-mobile';
-import { isAllCheck, getAllGoodsNum, getAllGoodsCount } from '../../util';
+import { isAllCheck, getAllGoodsNum, getAllGoodsCount, getOrderList, getWillbuyIds } from '../../util';
+import { sendOrder } from '../../redux/actions/order';
 
 @connect(mapStateToProps)
 class WillBuy extends React.Component {
@@ -78,7 +79,17 @@ class WillBuy extends React.Component {
         })
     }
     handlePay = () => {
-        console.log('1111')
+        const from = this.props.user._id;
+        const to = '5ab324e8b3eaf33bacf534f6';
+        const orderList = getOrderList(this.state.willBuyList);
+        this.props.dispatch(sendOrder({from,to,orderList}));
+        //const deleteIds = getWillbuyIds(this.state.willBuyList);
+        // axios.get('/user/deletewillbuysByIds?willbuyIds='+deleteIds)
+        // .then(res=>{
+        //     if(res.status===200) {
+        this.props.history.push('/order');
+        //     }
+        // })
     }
     render() {
         const { willBuyList } = this.state;
@@ -133,6 +144,7 @@ export default WillBuy
 
 function mapStateToProps(state) {
     return {
-        willBuyList: state.willBuyList
+        orderUser: state.orderUser,
+        user: state.user
     }
 }

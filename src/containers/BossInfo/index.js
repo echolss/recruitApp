@@ -53,7 +53,6 @@ class BossInfo extends React.Component {
                             onChange={v => this.handleChange('desc',v)}
                             autoHeight
                         />
-                        <WhiteSpace/>
                     </List>
                     <WhiteSpace/>
                     <Button type="primary" onClick={this.handleClick}>保存</Button>

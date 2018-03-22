@@ -2,6 +2,7 @@ import React from 'react';
 import Foot from '../../components/Foot';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { sendOrder } from '../../redux/actions/order';
 
 @connect(mapStateToProps)
 class VegDetail extends React.Component {
@@ -10,7 +11,8 @@ class VegDetail extends React.Component {
         this.state = {
             nowFoodCount: 1,
             vegItem: {},
-            showToast: false
+            showToast: false,
+            toastInfo: ''
         }
     }
     componentDidMount() {
@@ -36,16 +38,6 @@ class VegDetail extends React.Component {
             })
         }
     }
-    buyImmediately = () => {
-        this.setState({
-            showToast: true
-        });
-        setTimeout(() => {
-            this.setState({
-                showToast: false
-            });
-        }, 1000);
-    }
     putIntoMenu = () => {
         const userId = this.props.user._id;
         const { goodsId, categoryId, title, imgUrl, price } = this.state.vegItem;
@@ -63,7 +55,8 @@ class VegDetail extends React.Component {
         .then(res => {
             if(res.status===200 && res.data.code===0) {
                 this.setState({
-                    showToast: true
+                    showToast: true,
+                    toastInfo: '成功添加到购物车 !!!'
                 });
                 setTimeout(() => {
                     this.setState({
@@ -73,10 +66,44 @@ class VegDetail extends React.Component {
             }
         })
     }
+    handlePay = () => {
+        const from = this.props.user._id;
+        const to = '5ab324e8b3eaf33bacf534f6';
+        const vegItem = this.state.vegItem;
+        const orderList = [
+            {
+              goodsId: vegItem.goodsId,
+              categoryId: vegItem.categoryId,
+              title: vegItem.title,
+              imgUrl: vegItem.imgUrl,
+              price: vegItem.price,
+              num: this.state.nowFoodCount
+            }
+        ];
+        this.props.dispatch(sendOrder({from,to,orderList}));
+        this.setState({
+            showToast: true,
+            toastInfo: '下单成功 !!!'
+        });
+        setTimeout(() => {
+            this.setState({
+                showToast: false
+            });
+        }, 1000);
+    }
     render() {
-        const { showToast } = this.state;
+        const Toast = () => (
+            <div className="toast">
+                <div className="toast-mask"></div>
+                <div className="toast-wrap">
+                    <p><img src={require('./img/success.png')} alt="" /></p>
+                    <p>{toastInfo}</p>
+                </div>
+            </div>
+        );
+        const { showToast, toastInfo } = this.state;
         const { user } = this.props.user;
-        const leftBuyButton = user ? (<button className="buy-action buy-action-left" onClick={this.buyImmediately}>立即下单</button>)
+        const leftBuyButton = user ? (<button className="buy-action buy-action-left" onClick={this.handlePay}>立即下单</button>)
             : (<a href="http://localhost:3000/needlogin"><button className="buy-action buy-action-left">立即下单</button></a>);
         const rightBuyButton = user ? (<button className="buy-action buy-action-right" onClick={this.putIntoMenu}>加入菜单</button>)
             : (<a href="http://localhost:3000/needlogin"><button className="buy-action buy-action-right">加入菜单</button></a>)
@@ -122,15 +149,6 @@ class VegDetail extends React.Component {
     }
 }
 
-const Toast = () => (
-    <div className="toast">
-        <div className="toast-mask"></div>
-        <div className="toast-wrap">
-            <p><img src={require('./img/success.png')} alt="" /></p>
-            <p>成功添加到购物车 !!!</p>
-        </div>
-    </div>
-);
 
 export default VegDetail
 

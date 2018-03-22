@@ -6,6 +6,7 @@ const Chat = model.getModel('chat');
 const Goods = model.getModel('goods');
 const Categorys = model.getModel('categorys');
 const Willbuy = model.getModel('willbuy');
+const Order = model.getModel('order');
 const utils = require('utility');
 
 const _filter = {'pwd': 0, '__v': 0};  //定义一个统一显示条件
@@ -48,7 +49,7 @@ Router.get('/list',function(req,res) {
     })
 })
 Router.post('/register',function(req,res) {
-    const {user, pwd, type} = req.body;
+    const {user, pwd, type,avatar,address} = req.body;
     User.findOne({user},function(err,doc) {
         if(doc) {
             return res.json({code: 1,msg: '用户已存在'})
@@ -61,14 +62,14 @@ Router.post('/register',function(req,res) {
             return res.json({code: 0})
         })
         */
-        const userModel = new User({user,pwd: md5Pwd(pwd),type});
+        const userModel = new User({user,pwd: md5Pwd(pwd),type,avatar,address});
         userModel.save(function(err,doc) {
             if(err) {
                 return res.json({code: 1,msg: '后端出错了'})
             }
             res.cookie('userid',doc._id);   //写入cookie
-            const { user, type, _id } = doc;   //过滤返回的信息
-            return res.json({code: 0, data: { user, type, _id }})
+            const { user, type, _id,avatar,address } = doc;   //过滤返回的信息
+            return res.json({code: 0, data: { user, type, _id,avatar,address }})
         })
     })
 })
@@ -263,6 +264,27 @@ Router.get('/deletewillbuy',function(req,res) {
         })
     })
 });
+// Router.get('/deletewillbuysByIds',function(req,res) {
+//     const { willbuyIds } =req.query;  //"ws-w10-w11-w12"
+//     const deleteIds = willbuyIds.split('-').slice(1);
+//     for(let i = 0; i<deleteIds.length; i++) {
+//         Willbuy.remove({willbuyId: deleteIds[i]},function(e,d) {});
+//     }
+// });
+//将user为小桃的type改为manager
+//User.update({'user': '小桃'},{'$set': {type: 'manager'}},function(err,doc) {})
+/*
+User.create(
+    {
+        "user": "小红",
+        "type": "manager",
+        "avatar": "girl",
+        "job": "管理员",
+        "desc": "一只可爱的开心果！"
+    }
+);
+*/
+//User.remove({},function(err,doc) {});
 //Willbuy.remove({},function(err,doc) {})  //删除所有数据
 /*
 Goods.create(
@@ -351,3 +373,124 @@ Categorys.create(
     ]
 );
 */
+Router.get('/orderstest',function(req,res) {
+    Order.find({},function(err,doc) {
+        return res.json(doc)
+    })
+})
+Router.get('/getorderlist',function(req,res) {
+    const userid = req.cookies.userid;
+    Order.find({'$or':[{from:userid},{to:userid}]},function(err,doc) {
+        if(err) {
+            console.log('后端出错了');
+        }
+        else{
+            return res.json({code: 0, orders: doc})
+        }
+    })
+})
+Router.post('/readorder',function(req,res) {
+    const { orderid } = req.body;
+    Order.update(
+        {orderid},
+        {'$set': {handle: true}},
+        function(err,doc) {
+            if(!err) {
+                return res.json({code: 0});
+            }
+            return res.json({code: 1,msg: '修改失败'});
+        }
+    )
+})
+//Order.remove({},function(err,doc) {});
+/*
+Order.create(
+    [
+        {
+            orderid: 'o1',
+            from: '5ab31d31b3eaf33bacf534f4',
+            to: '5ab324e8b3eaf33bacf534f6',
+            handle: false,
+            orderList: [
+                {
+                  "goodsId": "2001",
+                  "categoryId": "2",
+                  "title": "黄豆芽 250克",
+                  "imgUrl": "http://www.6ctb.com/images/201612/goods_img/674_G_1482134566725.jpg",
+                  "price": 1.9,
+                  "num": 1
+                },
+                {
+                  "goodsId": "3003",
+                  "categoryId": "3",
+                  "title": "猪肉 肋排 600g",
+                  "imgUrl": "http://www.6ctb.com/images/201701/goods_img/689_P_1484548279689.jpg",
+                  "price": 24.9,
+                  "num": 3
+                },
+                {
+                  "goodsId": "1004",
+                  "categoryId": "1",
+                  "title": "黄辣丁 500g",
+                  "imgUrl": "http://www.6ctb.com/images/201611/goods_img/579_P_1479719353955.jpg",
+                  "price": 25.9,
+                  "num": 1
+                },
+                {
+                  "goodsId": "1003",
+                  "categoryId": "1",
+                  "title": "鳕鱼 500g",
+                  "imgUrl": "http://www.6ctb.com/images/201610/goods_img/437_P_1476773151802.jpg",
+                  "price": 26.9,
+                  "num": 1
+                }
+            ],
+            create_time: 1518319634075     
+        },
+        {
+            orderid: 'o2',
+            from: '5ab31d31b3eaf33bacf534f4',
+            to: '5ab324e8b3eaf33bacf534f6',
+            handle: false,
+            orderList: [
+                {
+                  "goodsId": "2001",
+                  "categoryId": "2",
+                  "title": "黄豆芽 250克",
+                  "imgUrl": "http://www.6ctb.com/images/201612/goods_img/674_G_1482134566725.jpg",
+                  "price": 1.9,
+                  "num": 1
+                },
+                {
+                  "goodsId": "1004",
+                  "categoryId": "1",
+                  "title": "黄辣丁 500g",
+                  "imgUrl": "http://www.6ctb.com/images/201611/goods_img/579_P_1479719353955.jpg",
+                  "price": 25.9,
+                  "num": 1
+                }
+            ],
+            create_time: 1518320266219     
+        }
+    ]
+);
+*/
+// Order.create(
+//     {
+//         orderid: 'o3',
+//         from: '5ab36e034e0ab951d0997639',
+//         to: '5ab324e8b3eaf33bacf534f6',
+//         handle: true,
+//         orderList: [
+//             {
+//                 "goodsId": "2001",
+//                 "categoryId": "2",
+//                 "title": "黄豆芽 250克",
+//                 "imgUrl": "http://www.6ctb.com/images/201612/goods_img/674_G_1482134566725.jpg",
+//                 "price": 1.9,
+//                 "num": 1
+//             }
+//         ],
+//         create_time: 1519374515824    
+//     }
+// );

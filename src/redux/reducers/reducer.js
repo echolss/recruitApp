@@ -2,9 +2,10 @@ import { combineReducers } from 'redux';
 import { user } from './user';
 import { chatUser } from './chat';
 import { msgUser } from './msg';
+import {orderUser } from './order';
 
 
-export default combineReducers({user,chatUser,msgUser})
+export default combineReducers({user,chatUser,msgUser,orderUser})
 
 /*
 JSX:            <h1 style="color: red" className="demo">hello,world</h1>
