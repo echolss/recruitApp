@@ -159,6 +159,17 @@ function md5Pwd(pwd) {  //光用utils.md5(pwd)是不够的，可以在对应网�
     const salt = 'luo_sha_sha_280508950@ECHO~~~~';
     return utils.md5(utils.md5(pwd+salt));
 }
+
+function getMaxwillbuyId(doc) {   //获取最大数+1
+    var id = 1;
+    for(var i = 0; i<doc.length; i++) {
+        if(Number(doc[i].willbuyId.substr(1)) > id) {
+            id = Number(doc[i].willbuyId.substr(1))
+        }
+    }
+    return id + 1;
+}
+
 Router.get('/goodstest',function(req,res) {
     //Goods.remove({},function(err,doc) {})  //删除所有数据
     Goods.find({},function(err,doc) {
@@ -234,21 +245,40 @@ Router.get('/getwillbuylist',function(req,res) {
 })
 Router.post('/addwillbuy',function(req,res) {
     const {userId,goodsId,categoryId,title,imgUrl,price,num} = req.body;
-    Willbuy.find({},function(err,doc) {
-        const willbuyId = doc.length ? (Number(doc[doc.length - 1].willbuyId.substr(1)) + 1) : 1;
-        Willbuy.create(
-            {
-                willbuyId: 'w'+willbuyId,
-                userId,
-                goodsId,
-                categoryId,
-                title,
-                imgUrl,
-                price,
-                num
-            }
-        );
-        return res.json({code: 0, willbuyId: willbuyId})
+    Willbuy.find({goodsId},function(err,doc) {
+        if(doc.length===1) {
+            Willbuy.findOne({goodsId},function(oneerr,onedoc) {
+                Willbuy.update(
+                    {goodsId},
+                    {'$set': {num: onedoc.num + num}},
+                    function(err,doc) {
+                        if(!err) {
+                            return res.json({code: 0});
+                        }
+                        return res.json({code: 1,msg: '修改失败'});
+                    }
+                )
+            })
+        } else {
+            Willbuy.find({},function(allerr,alldoc) {
+                const willbuyId = alldoc.length ? getMaxwillbuyId(alldoc) : 1;
+                Willbuy.create(
+                    {
+                        willbuyId: 'w'+willbuyId,
+                        userId,
+                        goodsId,
+                        categoryId,
+                        title,
+                        imgUrl,
+                        price,
+                        num
+                    },
+                    function(e,d) {
+                        return res.json({code: 0})
+                    }
+                );
+            })
+        }
     })
 })
 Router.get('/willbuystest',function(req,res) {
@@ -264,13 +294,21 @@ Router.get('/deletewillbuy',function(req,res) {
         })
     })
 });
-// Router.get('/deletewillbuysByIds',function(req,res) {
-//     const { willbuyIds } =req.query;  //"ws-w10-w11-w12"
-//     const deleteIds = willbuyIds.split('-').slice(1);
-//     for(let i = 0; i<deleteIds.length; i++) {
-//         Willbuy.remove({willbuyId: deleteIds[i]},function(e,d) {});
-//     }
-// });
+//Willbuy.remove({},function(err,doc) {})  //删除所有数据
+
+//Willbuy.remove({ willbuyId: { $in: ['w4', 'w6','w11','w12'] } },function(e,d) {});  //删除多条记录
+Router.get('/deletewillbuysByIds',function(req,res) {
+    const { willbuyIds } =req.query;  //"ws-w10-w11-w12"
+    const deleteIds = willbuyIds.split('-').slice(1);  // ['w10','w11','w12']
+    Willbuy.remove({ willbuyId: { $in: deleteIds } },function(err,doc) {
+        if(err) {
+            console.log('后端出错了');
+        }
+        else{
+            return res.json({code: 0})
+        }
+    });
+});
 //将user为小桃的type改为manager
 //User.update({'user': '小桃'},{'$set': {type: 'manager'}},function(err,doc) {})
 /*
@@ -285,7 +323,6 @@ User.create(
 );
 */
 //User.remove({},function(err,doc) {});
-//Willbuy.remove({},function(err,doc) {})  //删除所有数据
 /*
 Goods.create(
     [
@@ -387,6 +424,12 @@ Router.get('/getorderlist',function(req,res) {
         else{
             return res.json({code: 0, orders: doc})
         }
+    })
+})
+Router.get('/getorderdetailById',function(req,res) {
+    const { orderid } = req.query;
+    Order.findOne({orderid},function(err,doc) {
+        return res.json({code: 0, orderList: doc.orderList})
     })
 })
 Router.post('/readorder',function(req,res) {

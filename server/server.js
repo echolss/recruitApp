@@ -27,7 +27,7 @@ io.on('connection',function(socket){
 	socket.on('sendOrder',function(data) {
 		const { from, to, orderList } = data;
 		Order.find({},function(e,d) {
-			const orderid = d.length ? (Number(d[d.length - 1].orderid.substr(1)) + 1) : 1;
+			const orderid = d.length ? getMaxorderid(d) : 1;
 			Order.create({
 				orderid: 'o'+orderid,
 				from,
@@ -48,3 +48,13 @@ app.use('/',express.static(path.resolve('build')))
 server.listen(9093,function(){
 	console.log('Node app start at port 9093')
 })
+
+function getMaxorderid(doc) {
+    var id = 1;
+    for(var i = 0; i<doc.length; i++) {
+        if(Number(doc[i].orderid.substr(1)) > id) {
+            id = Number(doc[i].orderid.substr(1))
+        }
+    }
+    return id + 1;
+}

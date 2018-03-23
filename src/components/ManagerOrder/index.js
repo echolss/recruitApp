@@ -3,12 +3,17 @@ import { connect } from 'react-redux';
 import { Button } from 'antd-mobile';
 import { getOrderGoodsNum, getOrderGoodsCount, ordersSort, timeTransDate } from '../../util';
 import { readOrder, getOrderList } from '../../redux/actions/order';
+import { withRouter } from 'react-router-dom';
 
+@withRouter
 @connect(mapStateToProps)
 class ManagerOrder extends React.Component {
     handleClick(orderid) {
         this.props.dispatch(readOrder(orderid));
         this.props.dispatch(getOrderList());
+    }
+    handleOderDetail(orderid) {
+        this.props.history.push(`/order/${orderid}`);
     }
     render() {
         const { orders, users } = this.props;
@@ -37,7 +42,7 @@ class ManagerOrder extends React.Component {
                                         </span>
                                         <span className="num-wrap">{getOrderGoodsNum(v.orderList)}</span>
                                         <span className="count-wrap">{getOrderGoodsCount(v.orderList).toFixed(1)}</span>
-                                        <span className="button-wrap"><Button>查看详情</Button></span>
+                                        <span className="button-wrap"><Button onClick={()=>{this.handleOderDetail(v.orderid)}}>查看详情</Button></span>
                                         {
                                             v.handle ? (<span className="state-wrap">已发货</span>) : (
                                             <span className="button-wrap">

@@ -11,7 +11,7 @@ import BossInfo from '../../containers/BossInfo';
 import WorkerInfo from '../../containers/WorkerInfo';
 import Dashboard from '../../containers/Dashboard';
 import Chat from '../../containers/Chat';
-import VegDetail from '../../containers/VegDetail';
+import OrderDetail from '../../containers/OrderDetail';
 
 class NeedLogin extends React.Component {
     render() {
@@ -25,7 +25,7 @@ class NeedLogin extends React.Component {
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register} />
                     <Route path="/chat/:user" component={Chat} />
-                    <Route path="/vegdetail/:vegId" component={VegDetail} />
+                    <Route path="/order/:orderid" component={OrderDetail} />
                     <Route component={Dashboard} />
                 </Switch>
             </div>

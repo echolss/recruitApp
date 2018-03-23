@@ -79,17 +79,18 @@ class WillBuy extends React.Component {
         })
     }
     handlePay = () => {
+        const willBuyList = this.state.willBuyList;
         const from = this.props.user._id;
         const to = '5ab324e8b3eaf33bacf534f6';
-        const orderList = getOrderList(this.state.willBuyList);
+        const deleteIds = getWillbuyIds(willBuyList);
+        const orderList = getOrderList(willBuyList);
         this.props.dispatch(sendOrder({from,to,orderList}));
-        //const deleteIds = getWillbuyIds(this.state.willBuyList);
-        // axios.get('/user/deletewillbuysByIds?willbuyIds='+deleteIds)
-        // .then(res=>{
-        //     if(res.status===200) {
-        this.props.history.push('/order');
-        //     }
-        // })
+        axios.get('/user/deletewillbuysByIds?willbuyIds='+deleteIds)
+        .then(res=>{
+            if(res.status===200 && res.data.code===0) {
+                this.props.history.push('/order');
+            }
+        })
     }
     render() {
         const { willBuyList } = this.state;
