@@ -65,3 +65,18 @@ export function receiveHandleOrder() {
         });
     }
 }
+
+//发送取消订单事件
+export function sendStopOrder({orderid}) {
+    return dispatch => {
+        socket.emit('sendStopOrder',{orderid});
+    }
+}
+//接收取消订单事件
+export function receiveStopOrder() {
+    return (dispatch,getState) => {
+        socket.on('receiveStopOrder',function(){
+            dispatch(getOrderList());
+        });
+    }
+}

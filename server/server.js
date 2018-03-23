@@ -50,6 +50,16 @@ io.on('connection',function(socket){
 		    )
 		})
 	})
+	socket.on('sendStopOrder',function(data) {
+		const { orderid } = data;
+		Order.find({},function(e,d) {
+			Order.remove({orderid},
+				function(err,doc){
+				   io.emit('receiveStopOrder',Object.assign({},doc._doc));
+			    }
+		    )
+		})
+	})
 })
 
 app.use(cookieParser())

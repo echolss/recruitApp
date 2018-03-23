@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Button } from 'antd-mobile';
 import { getOrderGoodsNum, getOrderGoodsCount, timeTransDate, ordersSort } from '../../util';
 import { withRouter } from 'react-router-dom';
-import { receiveHandleOrder } from '../../redux/actions/order';
+import { receiveHandleOrder, sendStopOrder, getOrderList } from '../../redux/actions/order';
 
 @withRouter
 @connect(mapStateToProps)
@@ -13,6 +13,10 @@ class CommonOrder extends React.Component {
     }
     handleOderDetail(orderid) {
         this.props.history.push(`/order/${orderid}`);
+    }
+    handleStopOrder({orderid}) {
+        this.props.dispatch(sendStopOrder({orderid}));
+        this.props.dispatch(getOrderList());
     }
     render() {
         const { orders } = this.props;
@@ -42,7 +46,10 @@ class CommonOrder extends React.Component {
                                            <Button onClick={()=>{this.handleOderDetail(v.orderid)}}>查看详情</Button>
                                         </span>
                                         <span className="button-wrap">
-                                           {v.handle ? <span className="cantStop">无法取消</span> : <Button>取消订单</Button>}
+                                            {
+                                                v.handle ? <span className="cantStop">无法取消</span> 
+                                                : <Button onClick={()=>{this.handleStopOrder({orderid: v.orderid})}}>取消订单</Button>
+                                            }
                                         </span>
                                         <span className="count-wrap">
                                            {v.handle ? <span className="sent">已发货</span> : <span className="willsend">未发货</span>}

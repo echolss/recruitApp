@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'antd-mobile';
 import { getOrderGoodsNum, getOrderGoodsCount, ordersSort, timeTransDate, isEmptyObject } from '../../util';
-import { sendHandleOrder, getOrderList } from '../../redux/actions/order';
+import { sendHandleOrder, getOrderList, receiveStopOrder } from '../../redux/actions/order';
 import { getMsgList } from '../../redux/actions/msg';
 import { withRouter } from 'react-router-dom';
 
@@ -10,9 +10,9 @@ import { withRouter } from 'react-router-dom';
 @connect(mapStateToProps)
 class ManagerOrder extends React.Component {
     componentDidMount() {
+        this.props.dispatch(receiveStopOrder());
         if(isEmptyObject(this.props.users)) {
             this.props.dispatch(getMsgList());
-            //this.props.dispatch(getOrderList());
         }
     }
     handleClick({orderid}) {
