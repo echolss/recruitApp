@@ -20,25 +20,8 @@ class UserCard extends React.Component {
                                     <Card.Header
                                         title={v.user}
                                         thumb={require(`../img/${v.avatar}.png`)}
-                                        extra={<span>{v.job}</span>}
+                                        extra={<span>客服</span>}
                                     />
-                                    <Card.Body>
-                                        {
-                                            v.type==='boss' && <div>公司： {v.company}</div>
-                                        }
-                                        <WhiteSpace/>
-                                        {
-                                            v.desc.split('\n').map(
-                                                d => (<div key={d}>{d}</div>)
-                                            )
-                                        }
-                                        <WhiteSpace/>
-                                        {
-                                            v.type==='boss' && <div>薪资： {v.money}</div>
-                                        }
-                                    </Card.Body>
-                                    
-                                    {/* <Card.Footer content="footer content" extra={<div>extra footer content</div>} /> */}
                                 </Card>
 
                         )

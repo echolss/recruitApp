@@ -30,7 +30,7 @@ export function sendMsg({from, to, msg}) {
         socket.emit('sendMsg',{from, to, msg});
     }
 }
-export function receiveMsg(to) {
+export function receiveMsg() {
     return (dispatch,getState) => {
         socket.on('receiveMsg',function(data){
             const myid = getState().user._id;

@@ -1,22 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'antd-mobile';
-import { getOrderGoodsNum, getOrderGoodsCount, ordersSort, timeTransDate } from '../../util';
-import { readOrder, getOrderList } from '../../redux/actions/order';
+import { getOrderGoodsNum, getOrderGoodsCount, ordersSort, timeTransDate, isEmptyObject } from '../../util';
+import { sendHandleOrder, getOrderList } from '../../redux/actions/order';
+import { getMsgList } from '../../redux/actions/msg';
 import { withRouter } from 'react-router-dom';
 
 @withRouter
 @connect(mapStateToProps)
 class ManagerOrder extends React.Component {
-    handleClick(orderid) {
-        this.props.dispatch(readOrder(orderid));
+    componentDidMount() {
+        if(isEmptyObject(this.props.users)) {
+            this.props.dispatch(getMsgList());
+            //this.props.dispatch(getOrderList());
+        }
+    }
+    handleClick({orderid}) {
+        this.props.dispatch(sendHandleOrder({orderid}));
         this.props.dispatch(getOrderList());
     }
     handleOderDetail(orderid) {
         this.props.history.push(`/order/${orderid}`);
     }
     render() {
-        const { orders, users } = this.props;
+        const { orders } = this.props.orderUser;
+        const users = this.props.users;
         return (
             <div>
                 {
@@ -44,9 +52,9 @@ class ManagerOrder extends React.Component {
                                         <span className="count-wrap">{getOrderGoodsCount(v.orderList).toFixed(1)}</span>
                                         <span className="button-wrap"><Button onClick={()=>{this.handleOderDetail(v.orderid)}}>查看详情</Button></span>
                                         {
-                                            v.handle ? (<span className="state-wrap">已发货</span>) : (
-                                            <span className="button-wrap">
-                                               <Button onClick={() => {this.handleClick(v.orderid,v.from)}}>马上发货</Button>
+                                            v.handle ? (<span className="state-wrap sent">已发货</span>) : (
+                                            <span className="button-wrap" id="will-send-button">
+                                               <Button onClick={() => {this.handleClick({orderid: v.orderid})}}>马上发货</Button>
                                             </span>
                                             )
                                         }
@@ -65,7 +73,7 @@ export default ManagerOrder
 
 function mapStateToProps(state) {
     return {
-        orders: state.orderUser.orders,
+        orderUser: state.orderUser,
         users: state.msgUser.users
     }
 }

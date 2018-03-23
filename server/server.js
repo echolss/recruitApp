@@ -38,6 +38,18 @@ io.on('connection',function(socket){
 			})
 		})
 	})
+	socket.on('sendHandleOrder',function(data) {
+		const { orderid } = data;
+		Order.find({},function(e,d) {
+			Order.update(
+				{orderid},
+				{'$set': {handle: true}},
+				function(err,doc){
+				   io.emit('receiveHandleOrder',Object.assign({},doc._doc));
+			    }
+		    )
+		})
+	})
 })
 
 app.use(cookieParser())

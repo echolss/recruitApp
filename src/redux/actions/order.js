@@ -30,7 +30,7 @@ export function sendOrder({from, to, orderList}) {
         socket.emit('sendOrder',{from, to, orderList});
     }
 }
-export function receiveOrder(to) {
+export function receiveOrder() {
     return (dispatch,getState) => {
         socket.on('receiveOrder',function(data){
             const myid = getState().user._id;
@@ -51,20 +51,17 @@ function getOrder(order,myid) {
         myid,
     }
 }
-//标识订单已发货
-function orderIsRead({from,to,num}) {
-    return {
-        type: 'Order_isRead',
-        payload: {from,to,num}
+//发送已发货事件
+export function sendHandleOrder({orderid}) {
+    return dispatch => {
+        socket.emit('sendHandleOrder',{orderid});
     }
 }
-export function readOrder(orderid,from) {
-    return async (dispatch, getState) => {
-        const res = await axios.post('/user/readorder',{orderid})
-        const to = getState().user._id;
-        if (res.status===200 && res.data.code===0) {
-            const num = 1;
-            dispatch(orderIsRead({from,to,num}))
-        }
+//接收已发货事件
+export function receiveHandleOrder() {
+    return (dispatch,getState) => {
+        socket.on('receiveHandleOrder',function(){
+            dispatch(getOrderList());
+        });
     }
 }

@@ -7,7 +7,7 @@ import UserCard from '../../components/UserCard';
 @connect(mapStateToProps)
 class Boss extends React.Component {
     componentDidMount() {
-        this.props.dispatch(getUserList('worker'));
+        this.props.dispatch(getUserList('manager'));
     }
     render() {
         const user = this.props.user;
