@@ -7,8 +7,6 @@ import {
 import Login  from '../../containers/Login';
 import Register from '../../containers/Register';
 import AuthRoute from '../../components/AuthRoute';
-import BossInfo from '../../containers/BossInfo';
-import WorkerInfo from '../../containers/WorkerInfo';
 import Dashboard from '../../containers/Dashboard';
 import Chat from '../../containers/Chat';
 import OrderDetail from '../../containers/OrderDetail';
@@ -20,8 +18,6 @@ class NeedLogin extends React.Component {
             <div>
                 <AuthRoute/>
                 <Switch>
-                    <Route path="/bossinfo" component={BossInfo}/>
-                    <Route path="/workerinfo" component={WorkerInfo}/>
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register} />
                     <Route path="/chat/:user" component={Chat} />
