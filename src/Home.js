@@ -12,6 +12,7 @@ import VegDetail from './containers/VegDetail';
 import { connect } from 'react-redux';
 import { dataAction } from './redux/actions/user';
 import CateDetail from './components/CateDetail';
+import AuthUser from './components/AuthUser';
 
 @connect(mapStateToProps)
 class Home extends React.Component {
@@ -73,6 +74,7 @@ class Home extends React.Component {
                     <Route path="/needlogin" component={NeedLogin}/>
                     <Route path="/vegdetail/:vegId" component={VegDetail} />
                     <Route path="/catedetail/:cateId" component={CateDetail} />
+                    <Route path="/authuser" component={AuthUser}/>
                 </div>
             </Router>
         )

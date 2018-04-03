@@ -225,8 +225,12 @@ html {
     list-style: none;
     display: inline-block;
     margin-left: 50px;
+}
+.indexNavList-Item a {
     color: #9c7c7c;
-    cursor: pointer;
+}
+.indexNavList-Item a:hover {
+    color: #9c5c5c;
 }
 .single-foo-menu {
     margin-left: 100px;

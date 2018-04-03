@@ -11,12 +11,8 @@ class VegIndex extends React.Component {
         slideIndex: 0,
         indexNavList: [
             {
-                title: '商城首页',
-                path: ''
-            },
-            {
-                title: '合作伙伴',
-                path: ''
+                title: '申请认证',
+                path: 'http://localhost:3000/authuser'
             },
             {
                 title: '招商加盟',
@@ -133,7 +129,11 @@ class VegIndex extends React.Component {
                                 {
                                     this.state.indexNavList.map(
                                         v => (
-                                            <li key={v.title} className="indexNavList-Item">{v.title}</li>
+                                            <li key={v.title} className="indexNavList-Item">
+                                               <a href={v.path}>
+                                                    {v.title}
+                                               </a>
+                                            </li>
                                         )
                                     )
                                 }
