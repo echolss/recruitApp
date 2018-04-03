@@ -10,10 +10,8 @@
 
 * [下载安装mongodb教程](http://blog.csdn.net/qq_22063697/article/details/78069787?locationNum=9&fps=1)
 * npm install
-* npm run build
-* npm run server
-    *  可以访问服务器：http://localhost:9093/
-    *  可以访问本地：先：npm start   再访问：http://localhost:3000/
+* 进入server目录下,启动后端server:  nodemon server.js (or node server.js)
+* 进入项目名目录下,运行React项目:   npm start
 
 
 ## 项目结构
