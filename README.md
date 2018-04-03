@@ -4,7 +4,7 @@
 * 后端：node.js+express
 * 数据库：mongodb
 * 交互：socket.io+axios
-* 工具：creat-react-app
+* 脚手架：creat-react-app
 
 ## 运行项目
 
