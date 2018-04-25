@@ -6,7 +6,9 @@ import ListItem from '../../components/ListItem';
 import { Checkbox, Button } from 'antd-mobile';
 import { isAllCheck, getAllGoodsNum, getAllGoodsCount, getOrderList, getWillbuyIds } from '../../util';
 import { sendOrder } from '../../redux/actions/order';
+import PrivateRoute from '../../route/PrivateRoute';
 
+@PrivateRoute
 @connect(mapStateToProps)
 class WillBuy extends React.Component {
     constructor(props) {

@@ -8,7 +8,9 @@ import { Route, Redirect } from 'react-router-dom';
 import { getMsgList, receiveMsg } from '../../redux/actions/msg';
 import Order from '../Order';
 import WillBuy from '../WillBuy';
+import PrivateRoute from '../../route/PrivateRoute';
 
+@PrivateRoute
 @connect(mapStateToProps)
 class Dashboard extends React.Component {
     constructor(props) {

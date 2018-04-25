@@ -1,6 +1,6 @@
 import axios from 'axios';
 //错误消息
-function errorMsg(msg) {
+export function errorMsg(msg) {
     return {
         type: 'Error_Msg',
         msg
@@ -9,7 +9,7 @@ function errorMsg(msg) {
 
 //登录、注册、更新成功
 
-function authSuccess(obj) {
+export function authSuccess(obj) {
     const { pwd, ...data} = obj;  //不把pwd传进reducer
     return {
         type: 'Auth_Success',

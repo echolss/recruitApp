@@ -50,23 +50,29 @@ class VegDetail extends React.Component {
             imgUrl: imgUrl,
             price: price,
             num: num
-        }
-        axios.post('/user/addwillbuy',willbuyItem)
-        .then(res => {
-            if(res.status===200 && res.data.code===0) {
-                this.setState({
-                    showToast: true,
-                    toastInfo: '成功添加到购物车 !!!'
-                });
-                setTimeout(() => {
+        };
+        const { user } = this.props.user;
+        if(user) {
+            axios.post('/user/addwillbuy',willbuyItem)
+            .then(res => {
+                if(res.status===200 && res.data.code===0) {
                     this.setState({
-                        showToast: false
+                        showToast: true,
+                        toastInfo: '成功添加到购物车 !!!'
                     });
-                }, 1000);
-            }
-        })
+                    setTimeout(() => {
+                        this.setState({
+                            showToast: false
+                        });
+                    }, 1000);
+                }
+            });
+        } else {
+            this.props.history.push('/willbuy')
+        }
     }
     handlePay = () => {
+        const { user } = this.props.user;
         const from = this.props.user._id;
         const to = '5ab324e8b3eaf33bacf534f6';
         const vegItem = this.state.vegItem;
@@ -80,16 +86,20 @@ class VegDetail extends React.Component {
               num: this.state.nowFoodCount
             }
         ];
-        this.props.dispatch(sendOrder({from,to,orderList}));
-        this.setState({
-            showToast: true,
-            toastInfo: '下单成功 !!!'
-        });
-        setTimeout(() => {
+        if(user) {
+            this.props.dispatch(sendOrder({from,to,orderList}));
             this.setState({
-                showToast: false
+                showToast: true,
+                toastInfo: '下单成功 !!!'
             });
-        }, 1000);
+            setTimeout(() => {
+                this.setState({
+                    showToast: false
+                });
+            }, 1000);
+        } else {
+            this.props.history.push('/order')
+        }
     }
     render() {
         const Toast = () => (
@@ -102,11 +112,8 @@ class VegDetail extends React.Component {
             </div>
         );
         const { showToast, toastInfo } = this.state;
-        const { user } = this.props.user;
-        const leftBuyButton = user ? (<button className="buy-action buy-action-left" onClick={this.handlePay}>立即下单</button>)
-            : (<a href="http://localhost:3000/needlogin"><button className="buy-action buy-action-left">立即下单</button></a>);
-        const rightBuyButton = user ? (<button className="buy-action buy-action-right" onClick={this.putIntoMenu}>加入菜单</button>)
-            : (<a href="http://localhost:3000/needlogin"><button className="buy-action buy-action-right">加入菜单</button></a>)
+        const leftBuyButton = (<button className="buy-action buy-action-left" onClick={this.handlePay}>立即下单</button>);
+        const rightBuyButton = (<button className="buy-action buy-action-right" onClick={this.putIntoMenu}>加入菜单</button>);
         const { title, price, imgUrl, bigImgList, monthSell, reviews, sendCost } = this.state.vegItem;
         const nowFoodCount = this.state.nowFoodCount;
         return (

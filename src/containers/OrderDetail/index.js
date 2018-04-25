@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { getOrderGoodsNum, getOrderGoodsCount } from '../../util';
+import PrivateRoute from '../../route/PrivateRoute';
 
+@PrivateRoute
 @connect(mapStateToProps)
 class OrderDetail extends React.Component {
     constructor(props) {

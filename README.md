@@ -31,13 +31,11 @@
 │  
 ├─server  后台代码
 │      module.js  用户信息的数据库模型...
-│      server.js  SSR代码...
+│      server.js  express的app的若干代码...
 │      user.js  用户登录、注册一系列接口...
 │          
 └─src   
-  │      cmrh.conf.js  处理SSR的图片、样式问题
   │      config.js  axios全局拦截请求
-  │      Home.js  为实现后端首屏渲染，从index.js抽离出来的公共组件
   │      index.css  全部样式
   │      index.js  入口文件
   │      util.js  里面写了一些工具函数
@@ -64,6 +62,7 @@
   │  ├─Boss  显示客服的组件
   │  ├─Chat  聊天页面
   │  ├─Dashboard  主页面板
+  │  ├─Header  通用头部组件
   │  ├─Login  登录
   │  ├─Message  消息列表
   │  ├─Order  订单列表
@@ -74,19 +73,26 @@
   │  ├─VegIndex  首页的商品
   │  └─WillBuy  购物车页面
   │  
-  └─redux
-    ├─actions
-    │      chat.js  与聊天相关
-    │      msg.js  与消息相关
-    │      order.js  与订单相关
-    │      user.js  与用户相关
-    └─reducers
-          chat.js
-          msg.js
-          order.js
-          reducer.js  组合所有Reducer
-          user.js
+  ├─redux
+  |  ├─actions
+  |  │      chat.js  与聊天相关
+  |  │      msg.js  与消息相关
+  |  │      order.js  与订单相关
+  |  │      user.js  与用户相关
+  |  └─reducers
+  |        chat.js
+  |        msg.js
+  |        order.js
+  |        reducer.js  组合所有Reducer
+  |        user.js
+  |
+  └─route
+    ├─Index   首页
+    │
+    └─PrivateRoute  通用的需要登录后才能看到的高阶路由组件
   
+
+
 ```
 
 ## 若有疑问，可以联系我

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import reducer  from './redux/reducers/reducer';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './config';
-import Home from './Home';
+import Index from './route/Index'
 import './index.css';
 
 
@@ -21,24 +21,10 @@ const reduxDevtools = window.devToolsExtension ? window.devToolsExtension() : f=
 ReactDOM.render(
     <Provider store={store}>
         <Router>
-            <Home/>
+            <Index/>
         </Router>
     </Provider>,
     document.getElementById('root')
 )
-/*
-renderToNodeStream:
-
-ReactDOM.hydrate(
-    <Provider store={store}>
-        <Router>
-            <Home/>
-        </Router>
-    </Provider>,
-    document.getElementById('root')
-)
-*/
 
 
-
-  
